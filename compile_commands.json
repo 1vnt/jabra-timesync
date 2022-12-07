@@ -1,0 +1,16 @@
+[
+  {
+    "arguments": [
+      "/sbin/cc",
+      "-O3",
+      "-Iinclude/",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/vincent/jabra/jabra-sdk-timesync",
+    "file": "/home/vincent/jabra/jabra-sdk-timesync/src/main.c",
+    "output": "/home/vincent/jabra/jabra-sdk-timesync/src/main.o"
+  }
+]

@@ -1,0 +1,4 @@
+/jabra-timesync
+*.o
+*.d
+.cache
