@@ -41,7 +41,7 @@ static void updateTime(unsigned short deviceID) {
 }
 
 static void updateTimes() {
-  puts("Sync times");
+  puts("Syncing times");
   for (int i = 0; i < DEVICES_LENGTH; i++) {
     if (devices[i] == NULL)
       continue;
@@ -53,6 +53,7 @@ void intHandler(int dummy) {
   alarm(0);
   shutdown();
 }
+
 void alrmHandler(int dummy) {
   updateTimes();
   alarm(SLEEP_DURATION);
@@ -83,15 +84,18 @@ int main() {
 
   puts("Starting Jabra timesync demon");
 
+  // Root was required on my machine
+  if (geteuid() != 0) {
+    puts("Start as root user");
+    return 2;
+  }
+
   Jabra_SetAppID("49d8-feecf6d7-f352-40e7-8924-607427445679");
 
-  bool initialized =
-      Jabra_InitializeV2(NULL, deviceAttachedHandler, deviceRemovedHandler,
-                         NULL, NULL, true, NULL);
-
-  if (!initialized) {
+  if (!Jabra_InitializeV2(NULL, deviceAttachedHandler, deviceRemovedHandler,
+                          NULL, NULL, true, NULL)) {
     puts("Library failed to initialize!");
-    return -1;
+    return 1;
   }
 
   // Set initial alarm
