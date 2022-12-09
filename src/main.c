@@ -82,7 +82,7 @@ int main() {
   signal(SIGINT, intHandler);
   signal(SIGALRM, alrmHandler);
 
-  puts("Starting Jabra timesync demon");
+  puts("Starting Jabra timesync daemon");
 
   // Root was required on my machine
   if (geteuid() != 0) {
